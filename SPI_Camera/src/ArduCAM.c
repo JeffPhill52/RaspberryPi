@@ -866,7 +866,7 @@ void Arducam_bus_detect(int CS1,int CS2,int CS3,int CS4){
 	unsigned char vid, pid,temp ;
 
 	printf("----------\r\n");
-	printf(CS1);
+	printf("%d\n", &CS1);
 	printf("----------\r\n");
 
 	if(CS1> -1){
