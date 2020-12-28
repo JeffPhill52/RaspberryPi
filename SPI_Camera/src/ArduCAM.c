@@ -159,8 +159,11 @@ unsigned char bus_read(int address,int CS)
 
 unsigned char bus_write(int address,int value,int CS)
 {	
+	printf("In bus_write()\r\n");
 	CS_LOW(CS);
+	printf("before spiSendReceive(address)\r\n");
 	spiSendReceive(address);
+	printf("before spiSendReceive(value)\r\n");
 	spiSendReceive(value);
 	CS_HIGH(CS);
 	return 1;
@@ -174,7 +177,8 @@ unsigned char read_reg(unsigned char addr,int CS)
 }
 void write_reg(unsigned char addr, unsigned char data, int CS)
 {
-	 bus_write(addr | 0x80, data, CS); 
+	printf("In write_reg()\r\n");
+	bus_write(addr | 0x80, data, CS); 
 }
 
 unsigned char read_fifo(int CS)
