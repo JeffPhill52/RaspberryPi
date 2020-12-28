@@ -39,18 +39,26 @@ int main(int argc, char *argv[])
   int  n;
   int on = 1;
   pthread_t _readData;//_sendData;
+  printf("before pioInit()\r\n");
   pioInit();
+  printf("before ArduCAM_CS_init()\r\n");
   ArduCAM_CS_init( CAM_CS1, -1, -1, -1 );   // init the cs
   // ArduCAM_CS_init( CAM_CS1, CAM_CS2, CAM_CS3, CAM_CS4 );   // init the cs
 
+  printf("before sccb_bus_init()\r\n");
   sccb_bus_init();
+  printf("before spiInit()\r\n");
   spiInit(4000000, 0); //8MHZ
   //Arducam_bus_detect( CAM_CS1, CAM_CS2, CAM_CS3, CAM_CS4 );   // detect the SPI bus
+  printf("before Arducam_bus_detect\r\n");
   Arducam_bus_detect( CAM_CS1, -1, -1, -1 );
 
+  printf("before resetFirmware()\r\n");
   resetFirmware( CAM_CS1, -1, -1, -1 );  //reset the firmware
   // resetFirmware( CAM_CS1, CAM_CS2, CAM_CS3, CAM_CS4);  //reset the firmware
+  printf("before ArduCAM_Init()\r\n");
   ArduCAM_Init(sensor_model);
+  printf("before signal()\r\n");
   signal(SIGINT, INThandler);
   sockfd = socket(AF_INET, SOCK_STREAM, 0);
   if (sockfd < 0) {
