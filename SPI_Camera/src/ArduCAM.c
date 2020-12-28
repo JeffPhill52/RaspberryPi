@@ -865,7 +865,9 @@ void resetFirmware(int CS1, int CS2, int CS3, int CS4){
 void Arducam_bus_detect(int CS1,int CS2,int CS3,int CS4){
 	unsigned char vid, pid,temp ;
 
-	printf(CS1, "\r\n");
+	printf("----------\r\n");
+	printf(CS1);
+	printf("----------\r\n");
 
 	if(CS1> -1){
 		while(1){  	
