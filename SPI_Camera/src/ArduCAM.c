@@ -863,113 +863,115 @@ void resetFirmware(int CS1, int CS2, int CS3, int CS4){
 
 
 void Arducam_bus_detect(int CS1,int CS2,int CS3,int CS4){
-unsigned char vid, pid,temp ;
+	unsigned char vid, pid,temp ;
 
-if(CS1> -1){
-	while(1){  	
-  		write_reg(ARDUCHIP_TEST1, 0x55 ,CS1 );
-  		temp = read_reg(ARDUCHIP_TEST1 ,CS1 );
- 		if (temp != 0x55){
-    		printf("SPI1 interface Error!\n");
-			delay_ms(1000);
-    		continue;
-  		}
+	printf(CS1, "\r\n");
+
+	if(CS1> -1){
+		while(1){  	
+			write_reg(ARDUCHIP_TEST1, 0x55 ,CS1 );
+			temp = read_reg(ARDUCHIP_TEST1 ,CS1 );
+			if (temp != 0x55){
+				printf("SPI1 interface Error!\n");
+				delay_ms(1000);
+				continue;
+			}
+			
+			else{
+				printf("SPI1 interface OK!\r\n");
+				break;
+			}
+		}	
+	}
+
+
+	if(CS2> -1){
+		while(1){	 
+			write_reg(ARDUCHIP_TEST1, 0x55 ,CS2 );
+			temp = read_reg(ARDUCHIP_TEST1 ,CS2 );
+			if (temp != 0x55){
+				printf("SPI2 interface Error!\n");
+				delay_ms(1000);
+				continue;
+			}
+			
+			else{
+				printf("SPI2 interface OK!\r\n");
+				break;
+			}
+		}	 
+	}
+
+	if(CS3> -1){
+		while(1){  	
+			write_reg(ARDUCHIP_TEST1, 0x55 ,CS3 );
+			temp = read_reg(ARDUCHIP_TEST1 ,CS3 );
+			if (temp != 0x55){
+				printf("SPI3 interface Error!\n");
+				delay_ms(1000);
+				continue;
+			}
+			
+			else{
+				printf("SPI3 interface OK!\r\n");
+				break;
+			}
+		}	
+	}
+	if(CS4> -1){
+		while(1){	 
+			write_reg(ARDUCHIP_TEST1, 0x55 ,CS4 );
+			temp = read_reg(ARDUCHIP_TEST1 ,CS4 );
+			if (temp != 0x55){
+				printf("SPI4 interface Error!\n");
+				delay_ms(1000);
+				continue;
+			}
+			
+			else{
+				printf("SPI4 interface OK!\r\n");
+				break;
+			}
+		}	 
+	}
+
+
+	while(1){
+	sensor_addr = 0x60;
+	wrSensorReg8_8(0xff, 0x01);
+	rdSensorReg8_8(OV2640_CHIPID_HIGH, &vid);
+	rdSensorReg8_8(OV2640_CHIPID_LOW, &pid);
+	if ((vid != 0x26 ) && (( pid != 0x41 ) || ( pid != 0x42 )))
+	printf("Can't find OV2640 module!\r\n");
+	else{
+			sensor_model =  OV2640 ;
+			printf("OV2640 detected.\r\n");   
+			break;
+		}
+		sensor_addr = 0x78;
+		rdSensorReg16_8(OV5640_CHIPID_HIGH, &vid);
+	rdSensorReg16_8(OV5640_CHIPID_LOW, &pid);
+	if ((vid != 0x56) || (pid != 0x40))
+	printf("Can't find OV5640 module!\r\n");
+	else{
+				sensor_model =  OV5640 ;
+				printf("OV5640 detected.\r\n");
+			break;
+		}
 		
-  		else{
-    		 printf("SPI1 interface OK!\r\n");
-	 		break;
-    	}
-	}	
-}
-
-
- if(CS2> -1){
-	 while(1){	 
-		 write_reg(ARDUCHIP_TEST1, 0x55 ,CS2 );
-		 temp = read_reg(ARDUCHIP_TEST1 ,CS2 );
-		 if (temp != 0x55){
-			 printf("SPI2 interface Error!\n");
-			 delay_ms(1000);
-			 continue;
-		 }
-		 
-		 else{
-			  printf("SPI2 interface OK!\r\n");
-			 break;
-		 }
-	 }	 
- }
-
- if(CS3> -1){
-	while(1){  	
-  		write_reg(ARDUCHIP_TEST1, 0x55 ,CS3 );
-  		temp = read_reg(ARDUCHIP_TEST1 ,CS3 );
- 		if (temp != 0x55){
-    		printf("SPI3 interface Error!\n");
-			delay_ms(1000);
-    		continue;
-  		}
-		
-  		else{
-    		 printf("SPI3 interface OK!\r\n");
-	 		break;
-    	}
-	}	
-}
- if(CS4> -1){
-	 while(1){	 
-		 write_reg(ARDUCHIP_TEST1, 0x55 ,CS4 );
-		 temp = read_reg(ARDUCHIP_TEST1 ,CS4 );
-		 if (temp != 0x55){
-			 printf("SPI4 interface Error!\n");
-			 delay_ms(1000);
-			 continue;
-		 }
-		 
-		 else{
-			  printf("SPI4 interface OK!\r\n");
-			 break;
-		 }
-	 }	 
- }
-
-
- while(1){
-   sensor_addr = 0x60;
-   wrSensorReg8_8(0xff, 0x01);
-   rdSensorReg8_8(OV2640_CHIPID_HIGH, &vid);
-   rdSensorReg8_8(OV2640_CHIPID_LOW, &pid);
-   if ((vid != 0x26 ) && (( pid != 0x41 ) || ( pid != 0x42 )))
-   printf("Can't find OV2640 module!\r\n");
-   else{
-		  sensor_model =  OV2640 ;
-		  printf("OV2640 detected.\r\n");   
-		  break;
-	 }
-	 sensor_addr = 0x78;
-	 rdSensorReg16_8(OV5640_CHIPID_HIGH, &vid);
-   rdSensorReg16_8(OV5640_CHIPID_LOW, &pid);
-   if ((vid != 0x56) || (pid != 0x40))
-   printf("Can't find OV5640 module!\r\n");
-   else{
-			sensor_model =  OV5640 ;
-			printf("OV5640 detected.\r\n");
-		  break;
-	 }
-	 
-	 sensor_addr = 0x78;
-	 rdSensorReg16_8(OV5642_CHIPID_HIGH, &vid);
-   rdSensorReg16_8(OV5642_CHIPID_LOW, &pid);
-   if ((vid != 0x56) || (pid != 0x42)){
-		printf("Can't find OV5642 module!\r\n");
-		 continue;
-	 }
-   else{
-		 sensor_model =  OV5642 ;
-		 printf("OV5642 detected.\r\n"); 
-		 break;		 
-	 }
-  }
+		sensor_addr = 0x78;
+		rdSensorReg16_8(OV5642_CHIPID_HIGH, &vid);
+	rdSensorReg16_8(OV5642_CHIPID_LOW, &pid);
+	if ((vid != 0x56) || (pid != 0x42)){
+			printf("Can't find OV5642 module!\r\n");
+			continue;
+		}
+	else{
+			sensor_model =  OV5642 ;
+			printf("OV5642 detected.\r\n"); 
+			break;		 
+		}
+	}
 }
 
 

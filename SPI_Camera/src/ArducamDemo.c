@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
   printf("before spiInit()\r\n");
   spiInit(4000000, 0); //8MHZ
   //Arducam_bus_detect( CAM_CS1, CAM_CS2, CAM_CS3, CAM_CS4 );   // detect the SPI bus
-  printf("before Arducam_bus_detect\r\n");
+  printf("before Arducam_bus_detect()\r\n");
   Arducam_bus_detect( CAM_CS1, -1, -1, -1 );
 
   printf("before resetFirmware()\r\n");
