@@ -866,13 +866,16 @@ void Arducam_bus_detect(int CS1,int CS2,int CS3,int CS4){
 	unsigned char vid, pid,temp ;
 
 	printf("----------\r\n");
-	printf("%d\n", CS1);
+	printf("CS1 = %d\n", CS1);
 	printf("----------\r\n");
 
 	if(CS1> -1){
 		while(1){  	
+			printf("before write_reg()\r\n");
 			write_reg(ARDUCHIP_TEST1, 0x55 ,CS1 );
+			printf("before read_reg()\r\n");
 			temp = read_reg(ARDUCHIP_TEST1 ,CS1 );
+			printf("checking temp variable\r\n");
 			if (temp != 0x55){
 				printf("SPI1 interface Error!\n");
 				delay_ms(1000);
