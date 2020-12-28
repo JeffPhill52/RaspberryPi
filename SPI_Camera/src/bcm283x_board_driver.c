@@ -248,8 +248,11 @@ void spiInit(int freq, int settings) {
 }
 
  char spiSendReceive(char send){	
+    printf("In spiSendReceive()\r\n");
 	SPI0FIFO = send;            // send data to slave
+    printf("SPI transmission started\r\n");
 	while(!SPI0CSbits.DONE);	// wait until SPI transmission complete
+    printf("SPI transmission complete\r\n");
     return SPI0FIFO;            // return received data
 }
 
