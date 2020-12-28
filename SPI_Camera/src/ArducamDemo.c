@@ -35,6 +35,7 @@ unsigned int length_cam1;
 
 int main(int argc, char *argv[])
 {
+  printf("Running Demo\r\n");
   int  n;
   int on = 1;
   pthread_t _readData;//_sendData;
