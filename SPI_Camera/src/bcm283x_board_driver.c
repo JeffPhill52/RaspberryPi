@@ -247,26 +247,13 @@ void spiInit(int freq, int settings) {
     SPI0CSbits.TA = 1;          // turn SPI on with the "transfer active" bit
 }
 
-void delay(int number_of_seconds) 
-{ 
-    // Converting time into milli_seconds 
-    int milli_seconds = 1000 * number_of_seconds; 
-  
-    // Storing start time 
-    clock_t start_time = clock(); 
-  
-    // looping till required time is not achieved 
-    while (clock() < start_time + milli_seconds); 
-} 
-
  char spiSendReceive(char send){	
     printf("In spiSendReceive()\r\n");
 	SPI0FIFO = send;            // send data to slave
     printf("SPI transmission started\r\n");
 	while(!SPI0CSbits.DONE)	// wait until SPI transmission complete
     {
-        printf("SPI0Cbits.DONE = %d\r\n", SPI0CSbits.DONE);
-        delay(5);
+        
     }
     printf("SPI transmission complete\r\n");
     return SPI0FIFO;            // return received data
