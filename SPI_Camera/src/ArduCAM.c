@@ -152,7 +152,7 @@ unsigned char bus_read(int address,int CS)
 	unsigned char value;
     CS_LOW(CS);
 	spiSendReceive(address);
-	value = spiSendReceive(0x00);
+	value = spiSendReceive(0x30);
 	CS_HIGH(CS);
 	return value;
 }
